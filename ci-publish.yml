@@ -15,17 +15,17 @@ steps:
 
 #CREATE BINARY (publish)
 - task: DotNetCoreCLI@2
-  displayName: 'publish'
   inputs:
     command: 'publish'
     publishWebProjects: false
     projects: 'app/app.csproj'
-    zipAfterPublish: true
+    arguments: '-o $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: false
     modifyOutputPath: false
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'cosmos-binaries'
-    publishLocation: 'Container'
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'cosmos-binaries'
+#    publishLocation: 'Container'
 
