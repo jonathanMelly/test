@@ -13,9 +13,9 @@ pool:
 
 steps:
 
-#CREATE BINARY
+#CREATE BINARY (publish)
 - task: DotNetCoreCLI@2
-  displayName: 'Create binary'
+  displayName: 'publish'
   inputs:
     command: 'publish'
     publishWebProjects: false
