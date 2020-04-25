@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  tags:
+    include:
+    - v*
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+
+#CREATE BINARY
+- task: DotNetCoreCLI@2
+  displayName: 'Create binary'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'app/app.csproj'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+
+
