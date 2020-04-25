@@ -23,5 +23,9 @@ steps:
     zipAfterPublish: true
     modifyOutputPath: false
 
-
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'cosmos-binaries'
+    publishLocation: 'Container'
 
