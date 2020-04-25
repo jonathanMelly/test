@@ -20,7 +20,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'app/app.csproj'
-    zipAfterPublish: false
+    zipAfterPublish: true
     modifyOutputPath: false
 
 
