@@ -19,7 +19,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'app/app.csproj'
-    arguments: '-o $(Build.ArtifactStagingDirectory)'
+    arguments: '-c Release -o $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: false
     modifyOutputPath: false
 
