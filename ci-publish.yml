@@ -14,12 +14,8 @@ variables:
 
 stages:
 
-- stage: Dummy
-  jobs:
-    - job: Dummy
-
 - stage: Windows
-  dependsOn: Dummy
+  dependsOn: []
   pool:
     vmImage: 'windows-latest'
   jobs:
@@ -41,7 +37,7 @@ stages:
         publishLocation: 'Container'
         
 - stage: Linux
-  dependsOn: Dummy
+  dependsOn: []
   pool:
     vmImage: 'ubuntu-latest'
   jobs:
