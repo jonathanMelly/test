@@ -62,7 +62,7 @@ stages:
         ArtifactName: 'cosmos-linux64'
         publishLocation: 'Container'
 
-- stage: release notes
+- stage: releasenotes
   dependsOn: Windows | Linux
   pool:
     vmImage: 'windows-latest'
