@@ -9,7 +9,7 @@ trigger:
     - v*
 
 variables:
-  test: 'test'
+  test: 'TODO: template'
   zip: true
 
 stages:
@@ -17,28 +17,6 @@ stages:
 - stage: Dummy
   jobs:
     - job: Dummy
-
-- stage: Windows
-  dependsOn: Dummy
-  pool:
-    vmImage: 'windows-latest'
-  jobs:
-  - job: WindowsBuild
-    steps:
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish windows'
-      inputs:
-        command: 'publish'
-        publishWebProjects: false
-        projects: 'app/app.csproj'
-        arguments: '-c Release -r win-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: true
-        modifyOutputPath: false
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'cosmos-win64'
-        publishLocation: 'Container'
 
 - stage: Linux
   dependsOn: Dummy
@@ -61,38 +39,6 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'cosmos-linux64'
         publishLocation: 'Container'
-
-- stage: releasenotes
-  dependsOn: 
-    - Windows
-    - Linux
-  pool:
-    vmImage: 'windows-latest'
-  jobs:
-  - job: releasenotes
-    steps:
-    - task: 'JonathanMelly.BM-VSTS-XplatGenerateReleaseNotes-DEV.XplatGenerate-Release-Notes.XplatGenerateReleaseNotes@2'
-      displayName: 'Generate Release Notes based on Release Comparision API'
-      inputs:
-        outputfile: '$(Agent.TempDirectory)\releasenotes.md'
-        templateLocation: InLine
-        inlinetemplate:  '# :rocket: Nouveautés'
-        alsoGatherDataFromReleaseApi: false
-
-    - task: DownloadPipelineArtifact@2
-      displayName: 'Download Pipeline Artifact'
-      inputs:
-        targetPath: '$(Pipeline.Workspace)_artifacts/'
-
-    - task: GitHubRelease@1
-      displayName: 'GitHub release (create)'
-      inputs:
-        gitHubConnection: 'github repo release'
-        title: '$(Build.SourceVersion)'
-        releaseNotesFilePath: '$(Agent.TempDirectory)\releasenotes.md'
-        assets: '$(Pipeline.Workspace)_artifacts/'
-
-        addChangeLog: false
 
 
 
