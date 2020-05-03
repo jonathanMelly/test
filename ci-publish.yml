@@ -62,6 +62,21 @@ stages:
         ArtifactName: 'cosmos-linux64'
         publishLocation: 'Container'
 
+- stage: release notes
+  dependsOn: Windows | Linux
+  pool:
+    vmImage: 'windows-latest'
+  jobs:
+  - job: release
+    steps:
+    - task: 'JonathanMelly.BM-VSTS-XplatGenerateReleaseNotes-DEV.XplatGenerate-Release-Notes.XplatGenerateReleaseNotes@2'
+      displayName: 'Generate Release Notes based on Release Comparision API'
+      inputs:
+        outputfile: '$(Agent.TempDirectory)\releasenotes.md'
+        templateLocation: InLine
+        inlinetemplate:  '# :rocket: Nouveautés'
+        alsoGatherDataFromReleaseApi: false
+
 
 
 
