@@ -13,7 +13,11 @@ variables:
   zip: true
 
 stages:
+
+- stage: Dummy
+
 - stage: Windows
+  dependsOn: Dummy
   pool:
     vmImage: 'windows-latest'
   jobs:
@@ -35,6 +39,7 @@ stages:
         publishLocation: 'Container'
 
 - stage: Linux
+  dependsOn: Dummy
   pool:
     vmImage: 'linux-latest'
   jobs:
