@@ -69,7 +69,7 @@ stages:
   pool:
     vmImage: 'windows-latest'
   jobs:
-  - job: release
+  - job: releasenotes
     steps:
     - task: 'JonathanMelly.BM-VSTS-XplatGenerateReleaseNotes-DEV.XplatGenerate-Release-Notes.XplatGenerateReleaseNotes@2'
       displayName: 'Generate Release Notes based on Release Comparision API'
@@ -78,6 +78,23 @@ stages:
         templateLocation: InLine
         inlinetemplate:  '# :rocket: Nouveautés'
         alsoGatherDataFromReleaseApi: false
+
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Pipeline Artifact'
+      inputs:
+        targetPath: '$(Pipeline.Workspace)_artifacts/'
+
+    - task: GitHubRelease@1
+      displayName: 'GitHub release (create)'
+      inputs:
+        gitHubConnection: 'github repo release'
+        title: '$(Build.SourceVersion)'
+        releaseNotesFilePath: '$(Agent.TempDirectory)\releasenotes.md'
+        assets: '$(Pipeline.Workspace)_artifacts/'
+
+        addChangeLog: false
+
+
 
 
 
