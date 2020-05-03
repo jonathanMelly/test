@@ -18,6 +18,28 @@ stages:
   jobs:
     - job: Dummy
 
+- stage: Windows
+  dependsOn: Dummy
+  pool:
+    vmImage: 'windows-latest'
+  jobs:
+  - job: WindowsBuild
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish windows'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'app/app.csproj'
+        arguments: '-c Release -r win-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+        modifyOutputPath: false
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'cosmos-win64'
+        publishLocation: 'Container'
+        
 - stage: Linux
   dependsOn: Dummy
   pool:
