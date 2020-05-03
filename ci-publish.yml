@@ -8,25 +8,54 @@ trigger:
     include:
     - v*
 
-pool:
-  vmImage: 'windows-latest'
+variables:
+  test: 'test'
+  zip: true
 
-steps:
+stages:
+- stage: Windows
+  pool:
+    vmImage: 'windows-latest'
+  jobs:
+  - job: WindowsBuild
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish windows'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'app/app.csproj'
+        arguments: '-c Release -r windows-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+        modifyOutputPath: false
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'cosmos-win64'
+        publishLocation: 'Container'
 
-#CREATE BINARY (publish)
-- task: DotNetCoreCLI@2
-  displayName: 'Publish windows'
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'app/app.csproj'
-    arguments: '-c Release -r windows-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
-    modifyOutputPath: false
+- stage: Linux
+  pool:
+    vmImage: 'linux-latest'
+  jobs:
+  - job: LinuxBuild
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish linux'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false
+        projects: 'app/app.csproj'
+        arguments: '-c Release -r linux-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+        modifyOutputPath: false
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'cosmos-linux64'
+        publishLocation: 'Container'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'cosmos-win64'
-    publishLocation: 'Container'
+
+
+
 
