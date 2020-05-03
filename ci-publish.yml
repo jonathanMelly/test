@@ -63,7 +63,7 @@ stages:
         publishLocation: 'Container'
 
 - stage: releasenotes
-  dependsOn: Windows,Linux
+  dependsOn: and(Windows,Linux)
   pool:
     vmImage: 'windows-latest'
   jobs:
