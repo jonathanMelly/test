@@ -25,7 +25,7 @@ stages:
         command: 'publish'
         publishWebProjects: false
         projects: 'app/app.csproj'
-        arguments: '-c Release -r windows-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
+        arguments: '-c Release -r win-x64 -p:PublishReadyToRun=true -o $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
         modifyOutputPath: false
     - task: PublishBuildArtifacts@1
