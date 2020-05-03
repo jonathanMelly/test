@@ -43,12 +43,12 @@ stages:
 - stage: Linux
   dependsOn: Dummy
   pool:
-    vmImage: 'linux-latest'
+    vmImage: 'ubuntu-latest'
   jobs:
   - job: LinuxBuild
     steps:
     - task: DotNetCoreCLI@2
-      displayName: 'Publish linux'
+      displayName: 'Publish ubuntu linux'
       inputs:
         command: 'publish'
         publishWebProjects: false
