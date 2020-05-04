@@ -25,10 +25,10 @@
 
         <!-- COMMAND LINES -->
         <!-- TODO, use nuke ? -->
-        <!-- publish -c Release -r osx-x64 -p:PublishReadyToRun=true -->
-        <!-- publish -c Release -r linux-x64 -p:PublishReadyToRun=false -->
-        <!-- publish -c Release -r windows-x64 -p:PublishReadyToRun=true -->
-        
+        <!-- publish /p:version=2.0.0-gamma -c Release -r osx-x64 -p:PublishReadyToRun=true -->
+        <!-- publish /p:version=2.0.0-gamma -c Release -r linux-x64 -p:PublishReadyToRun=false -->
+        <!-- publish /p:version=2.0.0-gamma -c Release -r windows-x64 -p:PublishReadyToRun=true -->
+
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
