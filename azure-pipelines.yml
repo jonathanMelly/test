@@ -14,5 +14,7 @@ steps:
 - script: |
     git checkout master
     git merge integration
-    git push origin
+    git -c http.extraheader="AUTHORIZATION: basic $PAT" push origin
+  env:
+    PAT: '$(System.AccessToken)'
   displayName: 'Run a multi-line script'
