@@ -19,6 +19,8 @@ steps:
     git switch master
     git merge origin/integration
     git config --global user.email "jonathan.melly@gmail.com"
+    git config --global user.name "jmelly"
+    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
     git -c http.extraheader="authorization: Bearer $PAT" push origin
     
   env:
