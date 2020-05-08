@@ -25,7 +25,7 @@ steps:
     git push https://$PAT@github.com/jonathanMelly/test.git
     
   env:
-    PAT: '$(System.AccessToken)'
+    PAT: '$(gh)'
   displayName: 'Run a multi-line script'
   
 
