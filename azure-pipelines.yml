@@ -12,8 +12,8 @@ pool:
 steps:
 
 - script: |
-    git checkout master
-    git merge integration
+    git checkout origin/master
+    git merge origin/integration
     git -c http.extraheader="AUTHORIZATION: basic $PAT" push origin
   env:
     PAT: '$(System.AccessToken)'
