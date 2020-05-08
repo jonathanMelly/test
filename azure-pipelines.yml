@@ -18,11 +18,13 @@ pool:
 #git config --global user.name "jmelly"
 #git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 #git -c http.extraheader="authorization: Bearer $PAT" push origin
+#FONCTIONNE: git push https://$PAT@github.com/jonathanMelly/test.git
 steps:
 - script: |
     git switch master
     git merge origin/integration
-    git push https://$PAT@github.com/jonathanMelly/test.git
+    git -c http.extraheader="authorization: Bearer $PAT" push origin
+    
     
   env:
     PAT: '$(gh)'
