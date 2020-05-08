@@ -18,6 +18,7 @@ steps:
 - script: |
     git switch master
     git merge origin/integration
+    git config --global user.email "jonathan.melly@gmail.com"
     git -c http.extraheader="authorization: Bearer $PAT" push origin
     
   env:
