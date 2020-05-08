@@ -15,7 +15,7 @@ steps:
 - script: |
     git switch master
     git merge origin/integration
-    echo "https://$PAT:x-oauth-basic@github.com" > "$HOME\.git-credentials"
+    echo "https://$PAT:x-oauth-basic@github.com" >> "$HOME\.git-credentials"
     git config --global user.email "jonathan.melly@gmail.com"
     git config --global --add url."git@github.com:".insteadOf "https://github.com/"
     git push
