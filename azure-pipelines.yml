@@ -12,7 +12,7 @@ pool:
 steps:
 
 - script: |
-    git checkout origin/master
+    git switch master
     git merge origin/integration
     git -c http.extraheader="AUTHORIZATION: basic $PAT" push origin
   env:
