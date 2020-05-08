@@ -14,14 +14,15 @@ pool:
 #git config --global user.email "jonathan.melly@gmail.com"
 #git config --global --add url."git@github.com:".insteadOf "https://github.com/"
 #git push
+#git config --global user.email "jonathan.melly@gmail.com"
+#git config --global user.name "jmelly"
+#git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+#git -c http.extraheader="authorization: Bearer $PAT" push origin
 steps:
 - script: |
     git switch master
     git merge origin/integration
-    git config --global user.email "jonathan.melly@gmail.com"
-    git config --global user.name "jmelly"
-    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-    git -c http.extraheader="authorization: Bearer $PAT" push origin
+    git push https://$PAT@github.com/jonathanMelly/test.git
     
   env:
     PAT: '$(System.AccessToken)'
