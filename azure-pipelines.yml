@@ -9,12 +9,19 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+#git -c http.extraheader="AUTHORIZATION: basic $PAT" push origin
 steps:
 
 - script: |
     git switch master
     git merge origin/integration
-    git -c http.extraheader="AUTHORIZATION: basic $PAT" push origin
+    echo "https://$PAT:x-oauth-basic@github.com" > "$HOME\.git-credentials"
+    git config --global user.email "jonathan.melly@gmail.com"
+    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+    git push
   env:
     PAT: '$(System.AccessToken)'
   displayName: 'Run a multi-line script'
+  
+
+
