@@ -23,6 +23,7 @@ steps:
 - script: |
     git switch master
     git merge origin/integration
+    git config --global user.name "jonathanMelly"
     git -c http.extraheader="authorization: basic $PAT" push origin --dry-run
     
     
