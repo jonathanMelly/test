@@ -23,7 +23,7 @@ steps:
 - script: |
     git switch master
     git merge origin/integration
-    git -c http.extraheader="authorization: Bearer $PAT" push origin
+    git -c http.extraheader="authorization: basic $PAT" push origin --dry-run
     
     
   env:
