@@ -16,6 +16,7 @@ stages:
 
 - stage: Windows
   dependsOn: []
+  condition: false
   pool:
     vmImage: 'windows-latest'
   jobs:
@@ -35,7 +36,7 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'cosmos-win64'
         publishLocation: 'Container'
-        
+
 - stage: Linux
   dependsOn: []
   pool:
